@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sudoku</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  {% set forwarded_prefix = request.headers.get('X-Forwarded-Prefix', '') %}
+  <base href="{{ forwarded_prefix ~ '/' if forwarded_prefix else '/' }}">
+  <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
   <main class="app-shell">
@@ -46,6 +48,6 @@
     </div>
   </div>
 
-  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  <script src="static/app.js"></script>
 </body>
 </html>

@@ -131,7 +131,7 @@ async function fetchJson(url, options = {}) {
 
 async function loadState() {
   try {
-    const payload = await fetchJson("/api/state");
+    const payload = await fetchJson("api/state");
     state = payload.state;
     difficultyEl.value = state.difficulty;
     renderBoard();
@@ -143,7 +143,7 @@ async function loadState() {
 
 async function startNewGame() {
   try {
-    const payload = await fetchJson("/api/new-game", {
+    const payload = await fetchJson("api/new-game", {
       method: "POST",
       body: JSON.stringify({ difficulty: difficultyEl.value }),
     });
@@ -158,7 +158,7 @@ async function startNewGame() {
 
 async function resetBoard() {
   try {
-    const payload = await fetchJson("/api/reset", { method: "POST" });
+    const payload = await fetchJson("api/reset", { method: "POST" });
     state = payload.state;
     activeCell = null;
     closeNumberPicker();
@@ -170,7 +170,7 @@ async function resetBoard() {
 
 async function submitMove(row, col, value) {
   try {
-    const payload = await fetchJson("/api/move", {
+    const payload = await fetchJson("api/move", {
       method: "POST",
       body: JSON.stringify({ row, col, value }),
     });
