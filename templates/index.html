@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sudoku</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="panel">
+      <div class="header-row">
+        <div>
+          <h1>Sudoku</h1>
+          <p class="subtitle">Kattints egy üres mezőre, és csak a szabályosan beírható számok jelennek meg.</p>
+        </div>
+        <div class="toolbar">
+          <label for="difficulty">Nehézség</label>
+          <select id="difficulty">
+            <option value="easy">Könnyű</option>
+            <option value="medium">Közepes</option>
+            <option value="hard">Nehéz</option>
+          </select>
+          <button id="new-game-btn">Új játék</button>
+          <button id="reset-btn" class="secondary">Visszaállítás</button>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <div id="status-message" class="status-pill">Betöltés…</div>
+      </div>
+
+      <div id="board" class="board" aria-label="Sudoku tábla"></div>
+    </section>
+  </main>
+
+  <div id="number-picker" class="modal hidden" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Szám kiválasztása</h2>
+        <button id="close-picker" class="icon-btn" aria-label="Bezárás">×</button>
+      </div>
+      <p class="modal-help">Csak az adott sorban, oszlopban és 3×3-as mezőben szabályosan beírható számok jelennek meg.</p>
+      <div id="picker-options" class="picker-grid"></div>
+      <p id="picker-empty" class="picker-empty hidden">Ehhez a mezőhöz jelenleg nincs szabályos választás.</p>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

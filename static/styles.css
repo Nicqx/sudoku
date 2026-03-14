@@ -1,0 +1,269 @@
+:root {
+  --bg: #0f172a;
+  --panel: #111827;
+  --panel-2: #1f2937;
+  --line: #334155;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --accent: #22c55e;
+  --accent-2: #3b82f6;
+  --danger: #ef4444;
+  --fixed: #0b1220;
+  --cell: #111827;
+  --cell-hover: #172033;
+  --cell-highlight: #1e293b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(180deg, #020617, #0f172a 35%, #111827);
+  color: var(--text);
+}
+
+.app-shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.panel {
+  background: rgba(17, 24, 39, 0.94);
+  border: 1px solid rgba(51, 65, 85, 0.8);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.header-row {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.subtitle {
+  margin: 8px 0 0 0;
+  color: var(--muted);
+  max-width: 720px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+label {
+  color: var(--muted);
+}
+
+select,
+button {
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--text);
+  padding: 10px 14px;
+  font-size: 0.95rem;
+}
+
+button {
+  cursor: pointer;
+  background: var(--accent-2);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+button.secondary {
+  background: var(--panel-2);
+  border-color: var(--line);
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+.status-row {
+  margin-top: 16px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #0b1220;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.status-pill.success {
+  color: #86efac;
+  border-color: rgba(34, 197, 94, 0.45);
+}
+
+.status-pill.error {
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.45);
+}
+
+.board {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(9, minmax(36px, 1fr));
+  gap: 0;
+  width: min(92vw, 630px);
+  border: 3px solid #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+
+.cell {
+  aspect-ratio: 1 / 1;
+  border: 1px solid #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1rem, 2vw, 1.7rem);
+  font-weight: 600;
+  background: #0f172a;
+  color: #f8fafc;
+  user-select: none;
+}
+
+.cell.editable {
+  cursor: pointer;
+  background: #111827;
+}
+
+.cell.editable:hover {
+  background: var(--cell-hover);
+}
+
+.cell.empty {
+  color: transparent;
+}
+
+.cell.fixed {
+  background: var(--fixed);
+  color: #f8fafc;
+}
+
+.cell.selected {
+  background: #1d4ed8;
+}
+
+.cell.box-right {
+  border-right-width: 3px;
+}
+
+.cell.box-bottom {
+  border-bottom-width: 3px;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.modal-card {
+  width: min(420px, 100%);
+  background: #111827;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.modal-help {
+  color: var(--muted);
+  margin: 12px 0 0 0;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  padding: 0;
+  font-size: 1.4rem;
+  line-height: 1;
+  background: #1f2937;
+  border: 1px solid var(--line);
+}
+
+.picker-grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.picker-btn {
+  min-height: 56px;
+  font-size: 1.2rem;
+}
+
+.picker-btn.clear-btn {
+  grid-column: 1 / -1;
+  background: #7c2d12;
+}
+
+.picker-empty {
+  margin-top: 16px;
+  color: #fca5a5;
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    padding: 14px;
+  }
+
+  .panel {
+    padding: 14px;
+  }
+
+  .toolbar {
+    width: 100%;
+  }
+
+  .board {
+    width: 100%;
+  }
+}
