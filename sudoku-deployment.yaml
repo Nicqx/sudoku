@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sudoku-app
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: sudoku-app
+  template:
+    metadata:
+      labels:
+        app: sudoku-app
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: sudoku-app
+          image: sudoku-app:0.2.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9097
+          env:
+            - name: APP_PORT
+              value: "9097"
+            - name: SESSION_BACKEND
+              value: "redis"
+            - name: REDIS_HOST
+              value: "redis-service"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: SESSION_KEY_PREFIX
+              value: "sudoku:session"
+            - name: LEGACY_SESSION_KEY_PREFIX
+              value: "sudoku:"
+            - name: SESSION_TTL_SECONDS
+              value: "86400"
+            - name: SESSION_LOCK_TTL_SECONDS
+              value: "10"
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 50m
+              memory: 96Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sudoku-app
+spec:
+  type: ClusterIP
+  selector:
+    app: sudoku-app
+  ports:
+    - name: http
+      protocol: TCP
+      port: 9097
+      targetPort: http

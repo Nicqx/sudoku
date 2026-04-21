@@ -1,3 +1,9 @@
+docker build -t sudoku-app:0.2.0 .
+docker save -o sudoku-app_0.2.0.tar sudoku-app:0.2.0
+sudo k3s ctr images import sudoku-app_0.2.0.tar
+kubectl apply -f sudoku-deployment.yaml
+kubectl rollout status deployment/sudoku-app --timeout=5m
+
 Sudoku App for Kubernetes
 
 Ez a projekt egy webes Sudoku alkalmazás, amely Kubernetes alatt futtatható, és a meglévő Redis példányt használja session tárolásra.
