@@ -8,8 +8,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
     APP_PORT=9097 \
     SESSION_BACKEND=redis
+
+USER 1000:1000
 
 EXPOSE 9097
 

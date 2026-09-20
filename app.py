@@ -140,6 +140,10 @@ def create_app(store: BaseStore | None = None) -> Flask:
         except StorageError as exc:
             return jsonify({"ok": False, "error": str(exc)}), 500
 
+    @app.get("/livez")
+    def livez():
+        return jsonify({"ok": True})
+
     @app.post("/api/new-game")
     def new_game():
         sid = get_session_id()
@@ -280,6 +284,10 @@ except StorageError as exc:
 
     @failing_app.get("/healthz")
     def failed_healthz():
+        return jsonify({"ok": False, "error": str(exc)}), 500
+
+    @failing_app.get("/livez")
+    def failed_livez():
         return jsonify({"ok": False, "error": str(exc)}), 500
 
     @failing_app.get("/")
